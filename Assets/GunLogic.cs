@@ -50,7 +50,11 @@ public class TankWeapon : MonoBehaviour
         if (Time.time < nextFireTime) return;
         nextFireTime = Time.time + 1f / fireRate;
 
-        var p = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+        Vector3 dir = turret.forward;
+        dir.y = 0f;
+        dir.Normalize();
+
+        var p = Instantiate(projectilePrefab, firePoint.position, Quaternion.LookRotation(dir));
         p.Init(damage, projectileSpeed, range / projectileSpeed);
     }
 }
