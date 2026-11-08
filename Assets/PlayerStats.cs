@@ -54,4 +54,25 @@ public class PlayerStats : MonoBehaviour
     }
 
     float Mod(float v, UpgradeData u) => u.isPercent ? v * (1f + u.amount / 100f) : v + u.amount;
+    public float GetStat(StatType s)
+    {
+        switch (s)
+        {
+            case StatType.Damage: return weapon.damage;
+            case StatType.FireRate: return weapon.fireRate;
+            case StatType.MoveSpeed: return tank.moveSpeed;
+            case StatType.TurnSpeed: return tank.rotationSpeed;
+            case StatType.PickupRange: return xp.pickupRange;
+            case StatType.ProjectileSpeed: return weapon.projectileSpeed;
+            case StatType.Range: return weapon.range;
+            case StatType.MaxHealth: return health.maxHealth;
+            default: return 0f;
+        }
+    }
+
+    public float GetPreview(UpgradeData u)
+    {
+        float now = GetStat(u.stat);
+        return u.isPercent ? now * (1f + u.amount / 100f) : now + u.amount;
+    }
 }
