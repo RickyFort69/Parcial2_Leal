@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a5d8e4f32c3d8145b265fa2cbed7dfc, type: 3}
   m_Name: UpgradeBasic
   m_EditorClassIdentifier: Assembly-CSharp::UpgradePool
-  upgrades: []
+  choicesPerLevel: 3
+  upgrades:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

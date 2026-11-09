@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: EnemyBasic
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   displayName: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 6787031392191666684, guid: 954c467ecc7ef774ea59baf081904ed6, type: 3}
   maxHealth: 30
   speed: 3
   contactDamage: 5
   damageCooldown: 0.8
   xpValue: 1
-  gemPrefab: {fileID: 0}
+  gemPrefab: {fileID: 5125403783789782679, guid: d08b9aadb9e0b9440bfa8e4698832d5f, type: 3}
   unlockWave: 1

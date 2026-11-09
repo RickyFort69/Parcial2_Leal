@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eaab52bae9d1a34bb1fdd160b38232a, type: 3}
   m_Name: WaveBasic
   m_EditorClassIdentifier: Assembly-CSharp::WaveConfig
-  enemies: []
+  enemies:
+  - {fileID: 11400000, guid: 3c14051772d540c4e82ad446839114a1, type: 2}
   firstWaveDelay: 2
   timeBetweenWaves: 8
   baseCount: 5
