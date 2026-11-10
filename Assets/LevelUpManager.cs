@@ -92,7 +92,7 @@ public class LevelUpManager : MonoBehaviour
     {
         float now = playerStats.GetStat(u.stat);
         float next = playerStats.GetPreview(u);
-        return $"{StatName(u.stat)}: {now:0.##} ? {next:0.##}";
+        return $"{StatName(u.stat)}: {now:0.##} -> {next:0.##}";
     }
 
     static string StatName(StatType s) => s switch
