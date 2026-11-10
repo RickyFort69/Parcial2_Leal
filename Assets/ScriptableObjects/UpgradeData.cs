@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum StatType { Damage, FireRate, MoveSpeed, TurnSpeed, MaxHealth, PickupRange, ProjectileSpeed, Range }
+public enum StatType { Damage, FireRate, MoveSpeed, TurnSpeed, MaxHealth, PickupRange, ProjectileSpeed, Range, HealthRegen }
 
 [CreateAssetMenu(menuName = "Tank/Upgrade", fileName = "NewUpgrade")]
 public class UpgradeData : ScriptableObject
@@ -11,4 +11,5 @@ public class UpgradeData : ScriptableObject
     public StatType stat;
     public float amount;
     public bool isPercent;
+
 }

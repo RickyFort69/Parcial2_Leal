@@ -8,6 +8,7 @@ public class PlayerStats : MonoBehaviour
     TankWeapon weapon;
     PlayerXP xp;
     Health health;
+    PlayerRegen regen;
 
     void Awake()
     {
@@ -15,6 +16,7 @@ public class PlayerStats : MonoBehaviour
         weapon = GetComponent<TankWeapon>();
         xp = GetComponent<PlayerXP>();
         health = GetComponent<Health>();
+        regen = GetComponent<PlayerRegen>();
     }
 
     void Start()
@@ -34,6 +36,12 @@ public class PlayerStats : MonoBehaviour
         xp.pickupRange = baseStats.pickupRange;
         health.maxHealth = baseStats.maxHealth;
         health.current = baseStats.maxHealth;
+
+        if (regen != null)
+        {
+            regen.regenPerSecond = baseStats.healthRegen;
+            regen.delayAfterDamage = baseStats.regenDelay;
+        }
     }
 
     public void Apply(UpgradeData u)
@@ -50,10 +58,12 @@ public class PlayerStats : MonoBehaviour
             case StatType.MaxHealth:
                 health.IncreaseMax(u.isPercent ? health.maxHealth * u.amount / 100f : u.amount);
                 break;
+            case StatType.HealthRegen:
+                if (regen != null) regen.regenPerSecond = Mod(regen.regenPerSecond, u);
+                break;
         }
     }
 
-    float Mod(float v, UpgradeData u) => u.isPercent ? v * (1f + u.amount / 100f) : v + u.amount;
     public float GetStat(StatType s)
     {
         switch (s)
@@ -66,6 +76,7 @@ public class PlayerStats : MonoBehaviour
             case StatType.ProjectileSpeed: return weapon.projectileSpeed;
             case StatType.Range: return weapon.range;
             case StatType.MaxHealth: return health.maxHealth;
+            case StatType.HealthRegen: return regen != null ? regen.regenPerSecond : 0f;
             default: return 0f;
         }
     }
@@ -75,4 +86,6 @@ public class PlayerStats : MonoBehaviour
         float now = GetStat(u.stat);
         return u.isPercent ? now * (1f + u.amount / 100f) : now + u.amount;
     }
+
+    float Mod(float v, UpgradeData u) => u.isPercent ? v * (1f + u.amount / 100f) : v + u.amount;
 }
