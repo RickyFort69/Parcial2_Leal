@@ -15,11 +15,11 @@ MonoBehaviour:
   enemies:
   - {fileID: 11400000, guid: 3c14051772d540c4e82ad446839114a1, type: 2}
   firstWaveDelay: 2
-  timeBetweenWaves: 8
-  baseCount: 5
-  extraPerWave: 3
-  spawnInterval: 0.25
-  maxAlive: 100
-  healthPerWave: 0.1
-  speedPerWave: 0.03
+  timeBetweenWaves: 12
+  baseCount: 4
+  extraPerWave: 2
+  spawnInterval: 0.5
+  maxAlive: 40
+  healthPerWave: 0.06
+  speedPerWave: 0.02
   maxSpeedMultiplier: 2

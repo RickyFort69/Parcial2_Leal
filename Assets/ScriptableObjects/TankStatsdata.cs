@@ -15,4 +15,5 @@ public class TankStatsData : ScriptableObject
     [Header("Regeneración")]
     public float healthRegen = 0.5f;     // vida por segundo
     public float regenDelay = 3f;        // segundos sin recibir daño antes de empezar a curar
+    public float invulnerabilityTime = 0.5f;
 }

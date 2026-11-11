@@ -498,7 +498,7 @@ GameObject:
   - component: {fileID: 39299923}
   - component: {fileID: 39299922}
   - component: {fileID: 39299921}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5547,7 +5547,7 @@ GameObject:
   - component: {fileID: 1323808896}
   - component: {fileID: 1323808895}
   - component: {fileID: 1323808894}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6116,7 +6116,7 @@ GameObject:
   - component: {fileID: 1600090535}
   - component: {fileID: 1600090536}
   - component: {fileID: 1600090537}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -6272,6 +6272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 100
   current: 0
+  invulnerabilityTime: 0
 --- !u!114 &1600090534
 MonoBehaviour:
   m_ObjectHideFlags: 0

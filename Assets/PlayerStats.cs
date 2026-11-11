@@ -17,6 +17,10 @@ public class PlayerStats : MonoBehaviour
         xp = GetComponent<PlayerXP>();
         health = GetComponent<Health>();
         regen = GetComponent<PlayerRegen>();
+        int playerLayer = LayerMask.NameToLayer("Player");
+        if (playerLayer >= 0)
+            foreach (var t in GetComponentsInChildren<Transform>(true))
+                t.gameObject.layer = playerLayer;
     }
 
     void Start()
@@ -36,6 +40,7 @@ public class PlayerStats : MonoBehaviour
         xp.pickupRange = baseStats.pickupRange;
         health.maxHealth = baseStats.maxHealth;
         health.current = baseStats.maxHealth;
+        health.invulnerabilityTime = baseStats.invulnerabilityTime;
 
         if (regen != null)
         {

@@ -46,6 +46,13 @@ public class GameManager : MonoBehaviour
             if (p != null) playerHealth = p.GetComponent<Health>();
         }
         if (playerHealth != null) playerHealth.OnDied += OnPlayerDied;
+        int enemy = LayerMask.NameToLayer("Enemy");
+        int player = LayerMask.NameToLayer("Player");
+        if (enemy >= 0 && player >= 0)
+        {
+            Physics.IgnoreLayerCollision(enemy, enemy, true);     // enemigos no se empujan entre sí
+            Physics.IgnoreLayerCollision(enemy, player, true);    // ni empujan al jugador
+        }
     }
 
     void OnDestroy()
