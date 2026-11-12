@@ -373,6 +373,12 @@ public class BattleManager : MonoBehaviour
         OnMessage?.Invoke(msg);
         Debug.Log(msg);
     }
+    public List<Combatant> GetValidTargets(Combatant user, ActionData a)
+    {
+        bool targetsRivals = a.target == TargetType.SingleEnemy || a.target == TargetType.AllEnemies;
+        List<Combatant> pool = (targetsRivals == user.isPlayer) ? enemies : party;
+        return pool.FindAll(c => !c.IsDead);
+    }
 
     // ---------- Depuración (se borra cuando esté el menú) ----------
 
