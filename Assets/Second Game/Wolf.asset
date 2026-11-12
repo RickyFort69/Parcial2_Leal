@@ -15,10 +15,11 @@ MonoBehaviour:
   displayName: Behemoth
   sprite: {fileID: 0}
   flipX: 0
-  maxHP: 300
-  attack: 25
+  maxHP: 200
+  attack: 30
   magic: 15
   defense: 5
   magicDefense: 5
-  speed: 25
-  actions: []
+  speed: 40
+  actions:
+  - {fileID: 11400000, guid: 9c2a300f859faf34ba7b4ca7be70aedc, type: 2}

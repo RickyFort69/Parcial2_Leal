@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61e67e81d6df0cb40b4ce0cff3c432e5, type: 3}
+  m_Name: BattleConfig
+  m_EditorClassIdentifier: Assembly-CSharp::BattleConfig
+  atbSpeedMultiplier: 1
+  waitWhileMenuOpen: 0
+  statMultiplier: 2
+  variance: 0.1
+  defendReduction: 0.5
+  limitGainFactor: 1.5
+  waves:
+  - {fileID: 11400000, guid: 52db00350a673724b80acf209fac2057, type: 2}
+  - {fileID: 11400000, guid: 39f75dbff249aad429f180b373254e11, type: 2}
+  - {fileID: 11400000, guid: 16f0e0adb11414e40975b156120ebe2c, type: 2}
+  recoverEveryWaves: 3
+  recoverHPPercent: 0.3
+  recoverMPPercent: 0.3

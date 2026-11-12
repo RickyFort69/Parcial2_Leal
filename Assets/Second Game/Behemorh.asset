@@ -21,4 +21,5 @@ MonoBehaviour:
   defense: 5
   magicDefense: 5
   speed: 25
-  actions: []
+  actions:
+  - {fileID: 11400000, guid: 9c2a300f859faf34ba7b4ca7be70aedc, type: 2}
