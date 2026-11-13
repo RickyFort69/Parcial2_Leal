@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   displayName: Warrior
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 3e0fc30054e18734e97eb95418a626cf, type: 3}
   flipX: 0
   maxHP: 650
   maxMP: 30

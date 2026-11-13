@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bce8ad1c9697dc49a5845943afdf5d9, type: 3}
   m_Name: Behemorh
   m_EditorClassIdentifier: Assembly-CSharp::FFEnemyData
-  displayName: Behemoth
-  sprite: {fileID: 0}
+  displayName: Ogre
+  sprite: {fileID: 21300000, guid: fbf4761f487fb4d469f9f6a89d5549e8, type: 3}
   flipX: 0
   maxHP: 300
   attack: 25

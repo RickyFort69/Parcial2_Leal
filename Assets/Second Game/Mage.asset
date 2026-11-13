@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mage
   m_EditorClassIdentifier: Assembly-CSharp::CharacterData
   displayName: Mage
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 07b420892c5520744bd7d335a1e0fb15, type: 3}
   flipX: 0
   maxHP: 500
   maxMP: 120
