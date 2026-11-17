@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   title: Better Canon
   description: It betters your canon!
-  icon: {fileID: 21300000, guid: 034eee75f62e7a545a24edff082202a0, type: 3}
+  icon: {fileID: 21300000, guid: 9ae4de681ebbfd94d95d3a1270ff2c38, type: 3}
   stat: 0
   amount: 20
   isPercent: 1

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   title: Better Wheels
   description: Go vrumm vrumm!
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c98002a40d233b84197d08380b60dab1, type: 3}
   stat: 2
   amount: 10
   isPercent: 1

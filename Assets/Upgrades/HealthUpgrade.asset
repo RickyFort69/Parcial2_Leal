@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   title: Better TANK
   description: Betters your tank! More HP!
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 3a3c0f63fc475764ebf27352293b0756, type: 3}
   stat: 4
   amount: 20
   isPercent: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   title: Rapid Repairs
   description: Repairs your Rapid!
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: c59003ac78e35824ebb134c2b227ad95, type: 3}
   stat: 8
   amount: 0.5
   isPercent: 1

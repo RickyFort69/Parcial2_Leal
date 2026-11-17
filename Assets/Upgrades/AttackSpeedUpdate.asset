@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   title: Faster Canon
   description: Faster your canon!
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 76757f0578bcb4042b65ea3c360e3cbd, type: 3}
   stat: 1
   amount: 15
   isPercent: 1
