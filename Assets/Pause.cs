@@ -24,6 +24,8 @@ public class PauseMenu : MonoBehaviour
         if (resumeButton != null) resumeButton.onClick.AddListener(Resume);
         if (restartButton != null) restartButton.onClick.AddListener(Restart);
         if (quitButton != null) quitButton.onClick.AddListener(Quit);
+        if (Application.platform == RuntimePlatform.WebGLPlayer && quitButton != null)
+            quitButton.gameObject.SetActive(false);
     }
 
     void Update()

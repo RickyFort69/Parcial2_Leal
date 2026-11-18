@@ -95,6 +95,9 @@ public class MainMenu : MonoBehaviour
         MakeButton(mainPanel.transform, "Jugar", new Vector2(0.5f, 0.5f), new Vector2(0f, 20f), new Vector2(520f, 100f), Play, out _);
         MakeButton(mainPanel.transform, "Mejoras", new Vector2(0.5f, 0.5f), new Vector2(0f, -110f), new Vector2(520f, 100f), ShowShop, out _);
         MakeButton(mainPanel.transform, "Salir", new Vector2(0.5f, 0.5f), new Vector2(0f, -240f), new Vector2(520f, 100f), Quit, out _);
+
+        if (Application.platform != RuntimePlatform.WebGLPlayer)
+            MakeButton(mainPanel.transform, "Salir", new Vector2(0.5f, 0.5f), new Vector2(0f, -240f), new Vector2(520f, 100f), Quit, out _);
     }
 
     void BuildShopPanel()
