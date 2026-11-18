@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: MatchConfig
   m_EditorClassIdentifier: Assembly-CSharp::MatchConfig
   survivalTime: 300
+  defeatKeepPercent: 1
+  victoryMultiplier: 1.5
+  mainMenuScene: MainMenu

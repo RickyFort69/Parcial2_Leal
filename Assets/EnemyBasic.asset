@@ -21,3 +21,5 @@ MonoBehaviour:
   xpValue: 1
   gemPrefab: {fileID: 5125403783789782679, guid: d08b9aadb9e0b9440bfa8e4698832d5f, type: 3}
   unlockWave: 1
+  contactRange: 1.3
+  scrapValue: 2

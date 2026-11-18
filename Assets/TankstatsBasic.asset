@@ -20,3 +20,6 @@ MonoBehaviour:
   projectileSpeed: 18
   range: 12
   pickupRange: 3
+  healthRegen: 0.2
+  regenDelay: 3
+  invulnerabilityTime: 0.5
