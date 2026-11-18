@@ -7004,6 +7004,7 @@ MonoBehaviour:
   levelText: {fileID: 827655603}
   timerText: {fileID: 250256530}
   waveText: {fileID: 1944779372}
+  scrapText: {fileID: 0}
 --- !u!4 &652804487
 Transform:
   m_ObjectHideFlags: 0
@@ -25281,6 +25282,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7676748912865302677, guid: 9c8f63caa0eaad74ca6e2e3d8f4e59d2, type: 3}
+      propertyPath: metaPool
+      value: 
+      objectReference: {fileID: 11400000, guid: 2b6bf1dc0e5ebb549854033543ed2e46, type: 2}
     - target: {fileID: 8515527332639816009, guid: 9c8f63caa0eaad74ca6e2e3d8f4e59d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.7516294

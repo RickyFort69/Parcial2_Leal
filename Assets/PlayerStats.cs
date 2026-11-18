@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     PlayerXP xp;
     Health health;
     PlayerRegen regen;
+    public MetaUpgradePool metaPool;
 
     void Awake()
     {
@@ -47,24 +48,30 @@ public class PlayerStats : MonoBehaviour
             regen.regenPerSecond = baseStats.healthRegen;
             regen.delayAfterDamage = baseStats.regenDelay;
         }
+        ApplyMetaUpgrades();
+
     }
 
-    public void Apply(UpgradeData u)
+    public void Apply(UpgradeData u) => ApplyStat(u.stat, u.amount, u.isPercent);
+
+    public void ApplyStat(StatType stat, float amount, bool isPercent)
     {
-        switch (u.stat)
+        float Boost(float v) => isPercent ? v * (1f + amount / 100f) : v + amount;
+
+        switch (stat)
         {
-            case StatType.Damage: weapon.damage = Mod(weapon.damage, u); break;
-            case StatType.FireRate: weapon.fireRate = Mod(weapon.fireRate, u); break;
-            case StatType.MoveSpeed: tank.moveSpeed = Mod(tank.moveSpeed, u); break;
-            case StatType.TurnSpeed: tank.rotationSpeed = Mod(tank.rotationSpeed, u); break;
-            case StatType.PickupRange: xp.pickupRange = Mod(xp.pickupRange, u); break;
-            case StatType.ProjectileSpeed: weapon.projectileSpeed = Mod(weapon.projectileSpeed, u); break;
-            case StatType.Range: weapon.range = Mod(weapon.range, u); break;
+            case StatType.Damage: weapon.damage = Boost(weapon.damage); break;
+            case StatType.FireRate: weapon.fireRate = Boost(weapon.fireRate); break;
+            case StatType.MoveSpeed: tank.moveSpeed = Boost(tank.moveSpeed); break;
+            case StatType.TurnSpeed: tank.rotationSpeed = Boost(tank.rotationSpeed); break;
+            case StatType.PickupRange: xp.pickupRange = Boost(xp.pickupRange); break;
+            case StatType.ProjectileSpeed: weapon.projectileSpeed = Boost(weapon.projectileSpeed); break;
+            case StatType.Range: weapon.range = Boost(weapon.range); break;
             case StatType.MaxHealth:
-                health.IncreaseMax(u.isPercent ? health.maxHealth * u.amount / 100f : u.amount);
+                health.IncreaseMax(isPercent ? health.maxHealth * amount / 100f : amount);
                 break;
             case StatType.HealthRegen:
-                if (regen != null) regen.regenPerSecond = Mod(regen.regenPerSecond, u);
+                if (regen != null) regen.regenPerSecond = Boost(regen.regenPerSecond);
                 break;
         }
     }
@@ -83,6 +90,17 @@ public class PlayerStats : MonoBehaviour
             case StatType.MaxHealth: return health.maxHealth;
             case StatType.HealthRegen: return regen != null ? regen.regenPerSecond : 0f;
             default: return 0f;
+        }
+    }
+    void ApplyMetaUpgrades()
+    {
+        if (metaPool == null) return;
+
+        foreach (var m in metaPool.upgrades)
+        {
+            if (m == null) continue;
+            int level = MetaProgress.GetLevel(m);
+            if (level > 0) ApplyStat(m.stat, m.amountPerLevel * level, m.isPercent);
         }
     }
 

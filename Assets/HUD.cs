@@ -21,6 +21,7 @@ public class HUD : MonoBehaviour
     [Header("Info")]
     public TMP_Text timerText;
     public TMP_Text waveText;
+    public TMP_Text scrapText;
 
     void Update()
     {
@@ -46,5 +47,7 @@ public class HUD : MonoBehaviour
 
         if (spawner != null && waveText != null)
             waveText.text = $"Oleada {spawner.Wave}";
+
+        if (scrapText != null) scrapText.text = "Chatarra: " + MetaProgress.RunScrap;
     }
 }

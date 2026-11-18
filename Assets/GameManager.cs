@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public float ElapsedTime { get; private set; }
     public float TimeLeft => config != null ? Mathf.Max(0f, config.survivalTime - ElapsedTime) : 0f;
     public event Action<GameState> OnStateChanged;
+    public int BankedScrap { get; private set; }
 
     void Start()
     {
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
             enabled = false;
             return;
         }
-
+        MetaProgress.StartRun();
         if (victoryPanel != null) victoryPanel.SetActive(false);
         if (defeatPanel != null) defeatPanel.SetActive(false);
 
@@ -78,6 +79,9 @@ public class GameManager : MonoBehaviour
         State = result;
         Time.timeScale = 0f;
 
+        float multiplier = result == GameState.Won ? config.victoryMultiplier : config.defeatKeepPercent;
+        BankedScrap = MetaProgress.EndRun(multiplier);
+
         if (result == GameState.Won)
         {
             if (victoryPanel != null) victoryPanel.SetActive(true);
@@ -98,6 +102,8 @@ public class GameManager : MonoBehaviour
         string s = $"Tiempo: {t / 60:00}:{t % 60:00}";
         if (playerXP != null) s += $"\nNivel: {playerXP.level}";
         if (spawner != null) s += $"\nOleada: {spawner.Wave}";
+        s += $"\nChatarra recogida: {MetaProgress.RunScrap}";
+        s += $"\nChatarra ganada: {BankedScrap}";
         return s;
     }
 
@@ -106,6 +112,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void GoToMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(config.mainMenuScene);
     }
 
     public void Quit()

@@ -77,6 +77,9 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        if (data != null)
+            MetaProgress.AddScrap(data.scrapValue);
+
         if (data != null && data.gemPrefab != null)
         {
             var gem = Instantiate(data.gemPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);

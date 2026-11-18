@@ -13,4 +13,5 @@ public class EnemyData : ScriptableObject
     public XPGem gemPrefab;              // la gema que suelta
     public int unlockWave = 1;
     public float contactRange = 1.3f; // desde qué oleada aparece
+    public int scrapValue = 1;      // chatarra que suelta al morir
 }

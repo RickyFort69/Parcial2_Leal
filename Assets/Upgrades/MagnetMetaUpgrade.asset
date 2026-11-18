@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37825e12b5bcb94184f1ba9669d6e5d, type: 3}
+  m_Name: MagnetMetaUpgrade
+  m_EditorClassIdentifier: Assembly-CSharp::MetaUpgradeData
+  id: iman
+  title: Magnet
+  description: Be more Attractive
+  stat: 5
+  amountPerLevel: 15
+  isPercent: 1
+  maxLevel: 3
+  baseCost: 15
+  costIncrease: 15
