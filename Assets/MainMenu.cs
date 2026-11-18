@@ -69,7 +69,7 @@ public class MainMenu : MonoBehaviour
 
     void BuildCanvas()
     {
-        var go = new GameObject("MenuCanvas", typeof(Canvas), typeof(CanvasScaler));
+        var go = new GameObject("MenuCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
         go.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
 
         var scaler = go.GetComponent<CanvasScaler>();
@@ -82,7 +82,6 @@ public class MainMenu : MonoBehaviour
 
         var bg = MakePanel("Fondo", root, BackColor);
         bg.GetComponent<Image>().raycastTarget = false;
-        var goo = new GameObject("MenuCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
     }
 
     void BuildMainPanel()
