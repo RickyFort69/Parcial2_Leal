@@ -52,11 +52,19 @@ public class MainMenu : MonoBehaviour
 
     void EnsureEventSystem()
     {
-        if (FindFirstObjectByType<EventSystem>() != null) return;
+        var es = FindFirstObjectByType<EventSystem>();
+        if (es == null)
+            es = new GameObject("EventSystem", typeof(EventSystem)).GetComponent<EventSystem>();
 
-        var go = new GameObject("EventSystem", typeof(EventSystem));
-        var module = go.AddComponent<InputSystemUIInputModule>();
-        module.AssignDefaultActions();
+        // el módulo viejo no funciona con el Input System nuevo
+        var oldModule = es.GetComponent<StandaloneInputModule>();
+        if (oldModule != null) Destroy(oldModule);
+
+        if (es.GetComponent<InputSystemUIInputModule>() == null)
+        {
+            var module = es.gameObject.AddComponent<InputSystemUIInputModule>();
+            module.AssignDefaultActions();
+        }
     }
 
     void BuildCanvas()
@@ -74,6 +82,7 @@ public class MainMenu : MonoBehaviour
 
         var bg = MakePanel("Fondo", root, BackColor);
         bg.GetComponent<Image>().raycastTarget = false;
+        var goo = new GameObject("MenuCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
     }
 
     void BuildMainPanel()
