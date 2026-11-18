@@ -11,6 +11,7 @@ public class TankStatsData : ScriptableObject
     public float projectileSpeed = 18f;
     public float range = 12f;
     public float pickupRange = 3f;
+   
 
     [Header("Regeneración")]
     public float healthRegen = 0.5f;     // vida por segundo

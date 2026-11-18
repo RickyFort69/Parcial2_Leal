@@ -1,8 +1,13 @@
 using UnityEngine;
 
-public enum StatType { Damage, FireRate, MoveSpeed, TurnSpeed, MaxHealth, PickupRange, ProjectileSpeed, Range, HealthRegen }
+public enum StatType
+{
+    Damage, FireRate, MoveSpeed, TurnSpeed, MaxHealth, PickupRange, ProjectileSpeed, Range,
+    HealthRegen,
+    ExtraProjectiles, Pierce
+}
 
-[CreateAssetMenu(menuName = "Tank/Upgrade", fileName = "NewUpgrade")]
+[CreateAssetMenu(menuName = "Tank/Upgrade")]
 public class UpgradeData : ScriptableObject
 {
     public string title;
@@ -12,4 +17,8 @@ public class UpgradeData : ScriptableObject
     public float amount;
     public bool isPercent;
 
+    [Header("Probabilidad")]
+    public float weight = 10f;      // más alto = sale más seguido
+    public bool unique = false;     // si está marcado, solo se puede elegir una vez
+    public UpgradeData requires;    // opcional: solo aparece si ya elegiste esta
 }

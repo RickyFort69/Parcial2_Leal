@@ -4,10 +4,12 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     float damage;
+    int pierceLeft;
 
-    public void Init(float dmg, float speed, float lifetime = 3f)
+    public void Init(float dmg, float speed, float lifetime, int pierce = 0)
     {
         damage = dmg;
+        pierceLeft = pierce;
         var rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
         rb.linearVelocity = transform.forward * speed;
@@ -16,16 +18,17 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        var h = other.GetComponentInParent<Health>();
-        if (h != null)
+        if (other.TryGetComponent<Health>(out var h))
         {
-            if (h.CompareTag("Player")) return;   // no dañar al jugador
             h.TakeDamage(damage);
-            Destroy(gameObject);
+            if (pierceLeft > 0) pierceLeft--;
+            else Destroy(gameObject);
         }
-        else if (!other.isTrigger)
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            Destroy(gameObject);                  // paredes y obstáculos
+            if (pierceLeft > 0) pierceLeft--;
+            else Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

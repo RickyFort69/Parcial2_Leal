@@ -1,113 +1,68 @@
 using System.Collections.Generic;
-using TMPro;
+using System.Linq;
 using UnityEngine;
 
 public class LevelUpManager : MonoBehaviour
 {
-    [Header("Datos")]
-    public UpgradePool pool;
-
-    [Header("Referencias de la escena")]
     public PlayerXP playerXP;
-    public PlayerStats playerStats;
-
-    [Header("UI")]
+    public PlayerStats stats;
+    public List<UpgradeData> pool;
     public GameObject panel;
-    public TMP_Text levelText;
-    public Transform cardsContainer;
-    public UpgradeCard cardPrefab;
+    public UpgradeCard[] cards;
 
-    readonly Queue<int> pendingLevels = new Queue<int>();
-    bool open;
+    readonly HashSet<UpgradeData> taken = new HashSet<UpgradeData>();
 
-    void OnEnable()
+    void OnEnable() => playerXP.OnLevelUp += Show;
+    void OnDisable() => playerXP.OnLevelUp -= Show;
+
+    void Show(int level)
     {
-        if (playerXP != null) playerXP.OnLevelUp += HandleLevelUp;
-    }
+        var options = RollOptions(cards.Length);
+        if (options.Count == 0) return; // nada para ofrecer, no pausamos
 
-    void OnDisable()
-    {
-        if (playerXP != null) playerXP.OnLevelUp -= HandleLevelUp;
-    }
-
-    void Start()
-    {
-        if (panel != null) panel.SetActive(false);
-    }
-
-    void HandleLevelUp(int level)
-    {
-        pendingLevels.Enqueue(level);
-        if (!open) ShowNext();
-    }
-
-    void ShowNext()
-    {
-        if (pendingLevels.Count == 0) { Close(); return; }
-
-        int level = pendingLevels.Dequeue();
-        var options = pool.GetRandom(pool.choicesPerLevel);
-        if (options.Count == 0)
-        {
-            Debug.LogWarning("LevelUpManager: el UpgradePool no tiene mejoras", this);
-            pendingLevels.Clear();
-            Close();
-            return;
-        }
-
-        open = true;
         Time.timeScale = 0f;
         panel.SetActive(true);
-        if (levelText != null) levelText.text = $"¡NIVEL {level}!";
-
-        // borrar las cartas de la tanda anterior
-        foreach (Transform child in cardsContainer)
+        for (int i = 0; i < cards.Length; i++)
         {
-            child.gameObject.SetActive(false);
-            Destroy(child.gameObject);
+            bool has = i < options.Count;
+            cards[i].gameObject.SetActive(has);
+            if (has) cards[i].Setup(options[i], options[i].description, Choose);
         }
+    }
 
-        // crear una carta por mejora
-        foreach (var u in options)
+    List<UpgradeData> RollOptions(int count)
+    {
+        var candidates = pool.Where(IsAvailable).ToList();
+        var result = new List<UpgradeData>();
+
+        while (result.Count < count && candidates.Count > 0)
         {
-            var card = Instantiate(cardPrefab, cardsContainer);
-            card.Setup(u, BuildStatLine(u), Choose);
+            float total = candidates.Sum(u => u.weight);
+            float roll = Random.value * total;
+            UpgradeData chosen = candidates[candidates.Count - 1];
+            foreach (var u in candidates)
+            {
+                roll -= u.weight;
+                if (roll <= 0f) { chosen = u; break; }
+            }
+            result.Add(chosen);
+            candidates.Remove(chosen);
         }
+        return result;
+    }
+
+    bool IsAvailable(UpgradeData u)
+    {
+        if (u.unique && taken.Contains(u)) return false;
+        if (u.requires != null && !taken.Contains(u.requires)) return false;
+        return true;
     }
 
     void Choose(UpgradeData u)
     {
-        playerStats.Apply(u);
-        ShowNext();   // si quedan niveles pendientes muestra otra tanda, si no cierra
-    }
-
-    void Close()
-    {
-        open = false;
+        taken.Add(u);
+        stats.Apply(u);
         panel.SetActive(false);
         Time.timeScale = 1f;
     }
-
-    string BuildStatLine(UpgradeData u)
-    {
-        float now = playerStats.GetStat(u.stat);
-        float next = playerStats.GetPreview(u);
-        return $"{StatName(u.stat)}: {now:0.##} -> {next:0.##}";
-    }
-
-    static string StatName(StatType s) => s switch
-    {
-        StatType.Damage => "Daño",
-        StatType.FireRate => "Cadencia",
-        StatType.MoveSpeed => "Velocidad",
-        StatType.TurnSpeed => "Giro",
-        StatType.MaxHealth => "Vida máx.",
-        StatType.PickupRange => "Rango XP",
-        StatType.ProjectileSpeed => "Vel. de bala",
-        StatType.Range => "Alcance",
-        _ => s.ToString()
-    };
-
-    [ContextMenu("Probar level up")]
-    void Test() => HandleLevelUp(playerXP.level + 1);
 }

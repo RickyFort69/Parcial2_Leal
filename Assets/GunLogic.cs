@@ -14,7 +14,9 @@ public class TankWeapon : MonoBehaviour
     public float projectileSpeed = 18f;
     public float range = 12f;
     public float turretTurnSpeed = 720f;  // grados por segundo
-
+    public int projectileCount = 1;
+    public int pierce = 0;
+    public float spreadAngle = 12f; // grados entre proyectiles
     float nextFireTime;
     Camera cam;
 
@@ -53,8 +55,14 @@ public class TankWeapon : MonoBehaviour
         Vector3 dir = turret.forward;
         dir.y = 0f;
         dir.Normalize();
+        Quaternion baseRot = Quaternion.LookRotation(dir);
 
-        var p = Instantiate(projectilePrefab, firePoint.position, Quaternion.LookRotation(dir));
-        p.Init(damage, projectileSpeed, range / projectileSpeed);
+        for (int i = 0; i < projectileCount; i++)
+        {
+            float angle = (i - (projectileCount - 1) / 2f) * spreadAngle;
+            Quaternion rot = baseRot * Quaternion.Euler(0f, angle, 0f);
+            var p = Instantiate(projectilePrefab, firePoint.position, rot);
+            p.Init(damage, projectileSpeed, range / projectileSpeed, pierce);
+        }
     }
 }

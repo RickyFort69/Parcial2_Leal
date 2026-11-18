@@ -73,6 +73,12 @@ public class PlayerStats : MonoBehaviour
             case StatType.HealthRegen:
                 if (regen != null) regen.regenPerSecond = Boost(regen.regenPerSecond);
                 break;
+            case StatType.ExtraProjectiles:
+                weapon.projectileCount += Mathf.RoundToInt(amount);
+                break;
+            case StatType.Pierce:
+                weapon.pierce += Mathf.RoundToInt(amount);
+                break;
         }
     }
 
