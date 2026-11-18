@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveConfig
   enemies:
   - {fileID: 11400000, guid: 3c14051772d540c4e82ad446839114a1, type: 2}
-  firstWaveDelay: 2
-  timeBetweenWaves: 12
-  baseCount: 4
-  extraPerWave: 2
-  spawnInterval: 0.5
-  maxAlive: 40
-  healthPerWave: 0.06
-  speedPerWave: 0.02
-  maxSpeedMultiplier: 2
+  firstWaveDelay: 3
+  timeBetweenWaves: 8
+  baseCount: 6
+  extraPerWave: 3
+  spawnInterval: 0.3
+  maxAlive: 80
+  healthPerWave: 0.15
+  speedPerWave: 0.04
+  maxSpeedMultiplier: 1.8
