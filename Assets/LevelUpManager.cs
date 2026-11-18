@@ -53,6 +53,7 @@ public class LevelUpManager : MonoBehaviour
 
     bool IsAvailable(UpgradeData u)
     {
+        if (u.requiresUnlock && !MetaProgress.IsUnlocked(u)) return false;
         if (u.unique && taken.Contains(u)) return false;
         if (u.requires != null && !taken.Contains(u.requires)) return false;
         return true;

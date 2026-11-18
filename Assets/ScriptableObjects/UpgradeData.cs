@@ -21,4 +21,7 @@ public class UpgradeData : ScriptableObject
     public float weight = 10f;      // más alto = sale más seguido
     public bool unique = false;     // si está marcado, solo se puede elegir una vez
     public UpgradeData requires;    // opcional: solo aparece si ya elegiste esta
+    [Header("Desbloqueo (menú principal)")]
+    public bool requiresUnlock = false;  // si está marcado, hay que comprarla con chatarra
+    public int unlockCost = 50;          // costo en chatarra
 }

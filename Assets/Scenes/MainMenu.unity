@@ -149,6 +149,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
   pool: {fileID: 11400000, guid: 2b6bf1dc0e5ebb549854033543ed2e46, type: 2}
+  unlockables:
+  - {fileID: 11400000, guid: b7afafb95d351254fa5053060f52d9cf, type: 2}
+  - {fileID: 11400000, guid: 0cfaeb11c6dd93445af21019e76c65a3, type: 2}
+  - {fileID: 11400000, guid: c7d823572da567c4db8a5e9f4d86fcc8, type: 2}
   title: TANKYRE SURVIVORS
   gameScene: Tankyre Survivors
   devButtons: 1

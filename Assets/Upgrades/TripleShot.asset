@@ -21,3 +21,5 @@ MonoBehaviour:
   weight: 1.5
   unique: 1
   requires: {fileID: 11400000, guid: b7afafb95d351254fa5053060f52d9cf, type: 2}
+  requiresUnlock: 1
+  unlockCost: 100

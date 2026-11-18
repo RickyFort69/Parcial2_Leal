@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
 {
     [Header("Datos")]
     public MetaUpgradePool pool;
+    public List<UpgradeData> unlockables;   // Doble, Triple, Perforante
 
     [Header("Textos y escenas (las dos escenas tienen que estar en Build Profiles)")]
     public string title = "TANKYRE SURVIVORS";
@@ -22,6 +23,7 @@ public class MainMenu : MonoBehaviour
     class ShopRow
     {
         public MetaUpgradeData data;
+        public UpgradeData unlock;
         public TMP_Text info, level, buyLabel;
         public Button buy;
     }
@@ -108,30 +110,27 @@ public class MainMenu : MonoBehaviour
         header.fontStyle = FontStyles.Bold;
         Place(header.rectTransform, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0f, -30f), new Vector2(1400f, 110f));
 
-        if (pool == null)
-        {
-            var warn = MakeText("Aviso", shopPanel.transform, "Falta asignar el MetaUpgradePool en el objeto MainMenu",
-                                40, TextAlignmentOptions.Center, Color.white);
-            Place(warn.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(1400f, 100f));
-        }
-        else
+       
         {
             foreach (var u in pool.upgrades)
-                if (u != null) BuildRow(u, rows.Count);
+                if (u != null) BuildRow(u, null, rows.Count);
         }
+
+        if (unlockables != null)
+            foreach (var u in unlockables)
+                if (u != null) BuildRow(null, u, rows.Count);
 
         MakeButton(shopPanel.transform, "Volver", new Vector2(0.5f, 0f), new Vector2(0f, 70f), new Vector2(400f, 90f), ShowMain, out _);
 
         if (devButtons)
         {
-            MakeButton(shopPanel.transform, "+100 chatarra (prueba)", new Vector2(0f, 0f), new Vector2(230f, 70f), new Vector2(420f, 80f),
-                       () => { MetaProgress.DebugAddScrap(100); Refresh(); }, out _);
+            
             MakeButton(shopPanel.transform, "Borrar progreso", new Vector2(0f, 0f), new Vector2(230f, 165f), new Vector2(420f, 80f),
                        () => { MetaProgress.ResetAll(); Refresh(); }, out _);
         }
     }
 
-    void BuildRow(MetaUpgradeData u, int index)
+    void BuildRow(MetaUpgradeData u, UpgradeData unlock, int index)
     {
         float y = 170f + index * 105f;
 
@@ -143,7 +142,7 @@ public class MainMenu : MonoBehaviour
         img.color = PanelColor;
         img.raycastTarget = false;
 
-        var row = new ShopRow { data = u };
+        var row = new ShopRow { data = u, unlock = unlock };
 
         row.info = MakeText("Info", rt, "", 36, TextAlignmentOptions.MidlineLeft, Color.white);
         Place(row.info.rectTransform, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(25f, 0f), new Vector2(900f, 90f));
@@ -180,7 +179,8 @@ public class MainMenu : MonoBehaviour
 
     void Buy(ShopRow row)
     {
-        if (MetaProgress.TryBuy(row.data)) Refresh();
+        bool ok = row.unlock != null ? MetaProgress.TryUnlock(row.unlock) : MetaProgress.TryBuy(row.data);
+        if (ok) Refresh();
     }
 
     void Refresh()
@@ -189,6 +189,12 @@ public class MainMenu : MonoBehaviour
 
         foreach (var r in rows)
         {
+            if (r.unlock != null)
+            {
+                RefreshUnlockRow(r);
+                continue;
+            }
+
             var u = r.data;
             int level = MetaProgress.GetLevel(u);
             bool max = level >= u.maxLevel;
@@ -212,6 +218,26 @@ public class MainMenu : MonoBehaviour
             }
         }
     }
+
+    void RefreshUnlockRow(ShopRow r)
+    {
+        var u = r.unlock;
+        r.info.text = "<b>" + u.title + "</b>\n<size=70%>" + u.description + "</size>";
+
+        if (MetaProgress.IsUnlocked(u))
+        {
+            r.level.text = "Obtenida";
+            r.buyLabel.text = "COMPRADA";
+            r.buy.interactable = false;
+            return;
+        }
+
+        bool reqOk = u.requires == null || MetaProgress.IsUnlocked(u.requires);
+        r.level.text = "Bloqueada";
+        r.buyLabel.text = "Desbloquear (" + u.unlockCost + ")";
+        r.buy.interactable = reqOk && MetaProgress.CanUnlock(u);
+    }
+
 
     static string StatName(StatType s)
     {
@@ -294,4 +320,5 @@ public class MainMenu : MonoBehaviour
         Stretch(labelText.rectTransform);
         return btn;
     }
+
 }

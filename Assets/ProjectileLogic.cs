@@ -18,6 +18,9 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        // ignorar al jugador y a cualquier parte del tanque
+        if (other.GetComponentInParent<PlayerStats>() != null) return;
+
         if (other.TryGetComponent<Health>(out var h))
         {
             h.TakeDamage(damage);
@@ -26,8 +29,6 @@ public class Projectile : MonoBehaviour
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            if (pierceLeft > 0) pierceLeft--;
-            else Destroy(gameObject);
             Destroy(gameObject);
         }
     }

@@ -62,6 +62,25 @@ public static class MetaProgress
         Save();
         return true;
     }
+    static string UnlockId(UpgradeData u) => "unlock_" + u.name;
+
+    public static bool IsUnlocked(UpgradeData u)
+    {
+        Load();
+        return data.ids.Contains(UnlockId(u));
+    }
+
+    public static bool CanUnlock(UpgradeData u) => !IsUnlocked(u) && Scrap >= u.unlockCost;
+
+    public static bool TryUnlock(UpgradeData u)
+    {
+        if (!CanUnlock(u)) return false;
+        data.scrap -= u.unlockCost;
+        data.ids.Add(UnlockId(u));
+        data.levels.Add(1);
+        Save();
+        return true;
+    }
 
     // ---- partida ----
 
