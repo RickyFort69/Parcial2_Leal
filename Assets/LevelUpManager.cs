@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,25 +8,61 @@ public class LevelUpManager : MonoBehaviour
     public PlayerStats stats;
     public List<UpgradeData> pool;
     public GameObject panel;
-    public UpgradeCard[] cards;
+
+    [Header("Cartas")]
+    public UpgradeCard cardPrefab;      // el PREFAB de la carta (desde Project)
+    public Transform cardsContainer;    // padre donde aparecen las cartas (dentro del panel)
+    public int optionsCount = 3;
 
     readonly HashSet<UpgradeData> taken = new HashSet<UpgradeData>();
+    readonly List<GameObject> spawned = new List<GameObject>();
 
     void OnEnable() => playerXP.OnLevelUp += Show;
     void OnDisable() => playerXP.OnLevelUp -= Show;
 
     void Show(int level)
     {
-        var options = RollOptions(cards.Length);
-        if (options.Count == 0) return; // nada para ofrecer, no pausamos
+        var options = RollOptions(optionsCount);
+        if (options.Count == 0) return;
 
         Time.timeScale = 0f;
         panel.SetActive(true);
-        for (int i = 0; i < cards.Length; i++)
+
+        foreach (var go in spawned) if (go != null) Destroy(go);
+        spawned.Clear();
+
+        foreach (var opt in options)
         {
-            bool has = i < options.Count;
-            cards[i].gameObject.SetActive(has);
-            if (has) cards[i].Setup(options[i], options[i].description, Choose);
+            var card = Instantiate(cardPrefab, cardsContainer);
+            card.gameObject.SetActive(true);
+            card.Setup(opt, StatLine(opt), Choose);
+            spawned.Add(card.gameObject);
+        }
+    }
+
+    string StatLine(UpgradeData u)
+    {
+        float now = stats.GetStat(u.stat);
+        float next = stats.GetPreview(u);
+        return StatName(u.stat) + ": " + now.ToString("0.##") + " → " + next.ToString("0.##");
+    }
+
+    static string StatName(StatType s)
+    {
+        switch (s)
+        {
+            case StatType.Damage: return "Daño";
+            case StatType.FireRate: return "Cadencia";
+            case StatType.MoveSpeed: return "Velocidad";
+            case StatType.TurnSpeed: return "Giro";
+            case StatType.MaxHealth: return "Vida máxima";
+            case StatType.PickupRange: return "Recolección";
+            case StatType.ProjectileSpeed: return "Vel. de bala";
+            case StatType.Range: return "Alcance";
+            case StatType.HealthRegen: return "Regeneración";
+            case StatType.ExtraProjectiles: return "Proyectiles";
+            case StatType.Pierce: return "Perforación";
+            default: return s.ToString();
         }
     }
 
@@ -53,6 +89,7 @@ public class LevelUpManager : MonoBehaviour
 
     bool IsAvailable(UpgradeData u)
     {
+        if (u == null) return false;
         if (u.requiresUnlock && !MetaProgress.IsUnlocked(u)) return false;
         if (u.unique && taken.Contains(u)) return false;
         if (u.requires != null && !taken.Contains(u.requires)) return false;

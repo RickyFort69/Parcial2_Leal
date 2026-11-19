@@ -151,10 +151,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 414817360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
-  m_SizeDelta: {x: 1100, y: 500}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 960, y: -461.2534}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7442831
 MonoBehaviour:
@@ -1049,13 +1049,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef1e0290c4c1344a8464c95e89a7221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelUpManager
-  pool: {fileID: 11400000, guid: 8c46dff4cebd28e4f907002cd28a4fc0, type: 2}
   playerXP: {fileID: 1600090535}
-  playerStats: {fileID: 1600090536}
+  stats: {fileID: 1600090536}
+  pool:
+  - {fileID: 11400000, guid: 8ace24c83aa433b41a86bcc8fd9e1aef, type: 2}
+  - {fileID: 11400000, guid: 18af3691fd034d546b20b2d2ef188f5a, type: 2}
+  - {fileID: 11400000, guid: b7afafb95d351254fa5053060f52d9cf, type: 2}
+  - {fileID: 11400000, guid: 13e04b71dd99d51479cce6a8ba5e4eef, type: 2}
+  - {fileID: 11400000, guid: ff250e23e16d4894086b38abcc3dc055, type: 2}
+  - {fileID: 11400000, guid: 0b87ac91b68defa48862b8859e030593, type: 2}
+  - {fileID: 11400000, guid: f1b6ffaec8b50d543b676ccaf36ba655, type: 2}
+  - {fileID: 11400000, guid: c7d823572da567c4db8a5e9f4d86fcc8, type: 2}
+  - {fileID: 11400000, guid: 8dbdb039272d89547ae61ba34fb0ae5b, type: 2}
+  - {fileID: 11400000, guid: 0cfaeb11c6dd93445af21019e76c65a3, type: 2}
   panel: {fileID: 414817359}
-  levelText: {fileID: 827655603}
-  cardsContainer: {fileID: 7442830}
   cardPrefab: {fileID: 5983570815075303457, guid: bf39ba524c6762f46af0b38c1fa0b2bb, type: 3}
+  cardsContainer: {fileID: 414817360}
+  optionsCount: 3
 --- !u!4 &64108866
 Transform:
   m_ObjectHideFlags: 0
@@ -3699,6 +3709,7 @@ RectTransform:
   - {fileID: 1846280067}
   - {fileID: 1057916293}
   - {fileID: 1998272164}
+  - {fileID: 827655601}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4580,13 +4591,14 @@ GameObject:
   - component: {fileID: 414817360}
   - component: {fileID: 414817362}
   - component: {fileID: 414817361}
+  - component: {fileID: 414817363}
   m_Layer: 5
   m_Name: LevelUpPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &414817360
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4599,7 +4611,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 827655601}
   - {fileID: 7442830}
   m_Father: {fileID: 332546627}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4646,6 +4657,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 414817359}
   m_CullTransparentMesh: 1
+--- !u!114 &414817363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414817359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.HorizontalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 30
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!43 &431171633
 Mesh:
   m_ObjectHideFlags: 0
@@ -11085,17 +11122,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827655600}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 414817360}
+  m_Father: {fileID: 332546627}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98}
-  m_SizeDelta: {x: 800, y: 120}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1222, y: -36}
+  m_SizeDelta: {x: 232.75, y: 80.44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &827655602
 CanvasRenderer:
